@@ -19,6 +19,9 @@ class Board {
 
         void addCardToBoard(Card* c);
         
+        void initializeBoard(std::vector<Card*> deck);
+
+        int getBoardSize();
     private:
         std::vector<Space*> spaces;
 };

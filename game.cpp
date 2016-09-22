@@ -60,7 +60,27 @@ void Game::swap(Game& g) {
     }
 }
 
-void Game::loadPlayer() { }
+void Game::loadPlayers() { 
+    std::cout << "How many hashers are playing?" << std::endl;
+    int noPlayers = 0;
+    std::cin >> noPlayers;
+
+    for(int i = 0; i < noPlayers; i++) {
+        std::cout << "\nHasher " << i+1 << std::endl;
+        loadPlayer();
+    }
+    std::cout << "No players: " << players.size() << std::endl;
+}
+
+void Game::loadPlayer() {
+    std::string name;
+    Player* p = new Player();
+
+    std::cout << "What's your hash name (single word for now)?" << std::endl;    
+    std::cin >> name;    
+    p->setName(name);
+    players.push_back(p);
+}
 
 void Game::parseLine(std::string line, std::string& title, std::string& desc,
                 int& noSpaces, int& noTurns, bool& rollAgain) {
@@ -102,5 +122,28 @@ void Game::loadCardsFromFile(std::string filename) {
         cards.push_back(makeACard(title, desc, noSpaces, noTurns, rollAgain));            
     }
     std::cout << "Num cards = " << cards.size() << std::endl;
+    board->initializeBoard(cards);
+}
 
+bool Game::hasAnyoneWon() {    
+    std::vector<Player*>::iterator pIter = this->players.begin();
+    for(; pIter != players.end();  pIter++) {
+        if( (*pIter)->getPosition() == board->getBoardSize()){
+            return true;
+        }
+    }
+    return false;
+}
+
+void Game::PlayTheGame() {
+    std::vector<Player*>::iterator pIter = this->players.begin();
+    std::vector<Player*>::iterator pEnd = this->players.end();
+    while(!hasAnyoneWon()) {
+        std::cout << "Keep Playing"  << std::endl;
+        int num;
+        std::cin >> num;
+        for(; pIter != pEnd; pIter++) {
+            rollTheDice()
+        }
+    }
 }

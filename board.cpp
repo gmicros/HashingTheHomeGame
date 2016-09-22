@@ -1,6 +1,9 @@
+#include <ctime>
+#include <cstdlib>
 #include "board.h"
 #include "space.h"
 #include "card.h"
+#include <iostream>
 
 Board::Board() {
     this->spaces = std::vector<Space*>();
@@ -49,7 +52,21 @@ Card* Board::openCardFromSpaceIndex(int index) {
 
 void Board::addCardToBoard(Card* c){
     Space* s = new Space();
-    Card card(*c);
-    s->setCard(card);
+    Card* card = new Card(*c);
+    s->setCard(*card);
     spaces.push_back(s);
+}
+
+void Board::initializeBoard(std::vector<Card*> deck) {
+    std::srand((unsigned)time(0));
+    while(deck.size() != 0) {
+        int i = rand() % deck.size();
+        addCardToBoard(deck[i]);
+        deck.erase(deck.begin() + i);
+        std::cout << "Shuffling cards " << deck.size() << std::endl;
+    }
+}
+
+int Board::getBoardSize() {
+    return spaces.size();
 }

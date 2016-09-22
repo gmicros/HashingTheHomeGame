@@ -19,3 +19,19 @@ void Player::swap(Player& p) {
         std::swap(this->position, p.position);        
     }
 }
+
+std::string Player::getName() {
+    return name;
+}
+
+void Player::setName(std::string newName) {
+    name = newName;
+}
+
+int Player::getPosition() {
+    return position;
+}
+
+void Player::setPosition(int pos) {
+    position = pos;
+}

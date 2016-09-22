@@ -11,6 +11,11 @@ int main() {
 	Game* g = new Game();
 	g->loadCardsFromFile("cardFile");
 	std::cout << "Welcome to Hashing The Homegame\n";
+	g->loadPlayers();
+	g->PlayTheGame();
+
+
+	
 	std::string str;
 	return 0;
 }
